@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 import { ENDPOINTS } from '../config';
 import '../App.css';
 
@@ -10,6 +11,8 @@ function Register() {
     const [hidden, setHidden] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    const navigate = useNavigate();
+
     async function onsubmit(e) {
         e.preventDefault();
         if (!username || !email || !password) return;
@@ -18,7 +21,10 @@ function Register() {
         try {
             await axios.post(ENDPOINTS.REGISTER, { username, email, password });
             setUsername(''); setEmail(''); setPassword('');
-            alert("Registration Successful!");
+            // store a flash message and move to login page; App.jsx will read
+            // the value from sessionStorage and display the green bar.
+            sessionStorage.setItem('flash', 'Registration successful! Please login.');
+            navigate('/login');
         } catch (error) {
             console.error(error);
         } finally {
@@ -72,13 +78,13 @@ function Register() {
                                         </div>
                                     </div>
 
-                                    <button className="btn shopez-btn w-100 py-3 mb-3" type="submit" disabled={loading}>
+                                    <button className="btn shopez-btn w-100 py-3 mb-3" type="submit"  disabled={loading}>
                                         {loading ? <span className="spinner-border spinner-border-sm"></span> : "REGISTER"}
                                     </button>
                                 </form>
 
                                 <div className="text-center">
-                                    <p className="text-muted small">Already have an account? <a href="/login" className="fw-bold text-decoration-none" style={{ color: '#4361ee' }}>Login</a></p>
+                                    <p className="text-muted small">Already have an account? <Link to="/login" className="fw-bold text-decoration-none" style={{ color: '#4361ee' }}>Login</Link></p>
                                 </div>
                             </div>
                         </div>

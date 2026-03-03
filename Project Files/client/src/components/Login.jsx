@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { ENDPOINTS } from '../config';
 import '../App.css';
 
@@ -78,7 +79,7 @@ function Login() {
                                 </form>
 
                                 <div className="text-center">
-                                    <p className="text-muted small">New here? <a href="/" className="fw-bold text-decoration-none" style={{ color: '#4361ee' }}>Register</a></p>
+                                    <p className="text-muted small">New here? <Link to="/" className="fw-bold text-decoration-none" style={{ color: '#4361ee' }}>Register</Link></p>
                                 </div>
                             </div>
                         </div>
